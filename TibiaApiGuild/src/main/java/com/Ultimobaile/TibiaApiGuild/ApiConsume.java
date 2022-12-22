@@ -12,11 +12,10 @@ import com.Ultimobaile.TibiaApiGuild.dtos.CharesDTO;
 public class ApiConsume {
 
 	public String getChares(Personagem personagem) throws ParseException, IOException {
-		
 		Integer retorno = CharesDTO.filtrarPontuacao(personagem);
 		return retorno.toString();
 
 	}
-	
-	
+
+
 }
