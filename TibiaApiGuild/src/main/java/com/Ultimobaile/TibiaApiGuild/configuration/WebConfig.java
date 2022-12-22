@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
 	        return new WebMvcConfigurer() {
 	            @Override
 	            public void addCorsMappings(CorsRegistry registry) {
-	                registry.addMapping("/checar").allowedOrigins("http://localhost:8080");
+	                registry.addMapping("/checar").allowedOrigins("http://ec2-3-88-230-247.compute-1.amazonaws.com:8080");
 	            }
 	        };
 	    }
