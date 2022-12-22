@@ -21,7 +21,7 @@ public class GuildController {
 
 	@GetMapping("/checar")
 	@CrossOrigin
-	public ResponseEntity<String> readBombas(@PathVariable Personagem personagem) throws ParseException, IOException {
+	public ResponseEntity<String> readBombas(@PathVariable("personagem") Personagem personagem) throws ParseException, IOException {
 		return ResponseEntity.ok(apiConsume.getChares(personagem));
 	}
 
