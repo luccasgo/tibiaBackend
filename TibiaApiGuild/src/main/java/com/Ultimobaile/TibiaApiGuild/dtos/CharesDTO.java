@@ -14,6 +14,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.web.client.RestTemplate;
 
 import com.Ultimobaile.TibiaApiGuild.domains.Personagem;
+import com.Ultimobaile.TibiaApiGuild.service.ScraperService;
 
 public class CharesDTO {
 
@@ -41,40 +42,11 @@ public class CharesDTO {
 				personagem.setPontuacao(personagem.getPontuacao()+50);
 			}
 		}
-
+		
+		ScraperService s = new ScraperService();
+		String st = s.scrape(personagem.getNome());
+		personagem.setPontuacao(personagem.getPontuacao() + Integer.parseInt(st));
 		return personagem.getPontuacao();
 	}
 
-	private static Personagem pegarTibiaRing(Personagem personagem) throws IOException {
-		String url = "https://www.tibiaring.com/char.php?c=" + personagem.getNome() +"&lang=pt";
-		String response = restTemplate.getForObject(url, String.class);
-		
-		URL obj = new URL(url);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-		// optional default is GET
-		con.setRequestMethod("GET");
-
-		//add request header
-		con.setRequestProperty("User-Agent", "USER_AGENT");
-
-		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'GET' request to URL : " + url);
-		System.out.println("Response Code : " + responseCode);
-
-		BufferedReader in = new BufferedReader(
-		new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response2 = new StringBuffer();
-
-		while ((inputLine = in.readLine()) != null) {
-				response2.append(inputLine);
-		}
-		in.close();
-		
-		if(response2.toString().contains("id=gworld")) {
-			
-		}
-		return personagem;
-	}
 }
