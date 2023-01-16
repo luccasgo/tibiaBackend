@@ -29,23 +29,27 @@ public class CharesDTO {
 		JSONObject characters = (JSONObject) json.get("characters");
 		List<JSONObject> deaths = (List<JSONObject>) characters.get("deaths");
 		List<JSONObject> killers = new ArrayList<>();
+		if (deaths != null) {
+			for (int i = 0; i < deaths.size(); i++) {
 
-		for (int i = 0; i < deaths.size(); i++) {
-			killers = (List<JSONObject>) deaths.get(i).get("killers");
-			if(killers.size() <= 2 && killers.size()!=1) {
-				personagem.setPontuacao(personagem.getPontuacao()+600);
-			}else if(killers.size() <= 5) {
-				personagem.setPontuacao(personagem.getPontuacao()+300);
-			}else if(killers.size() <= 10) {
-				personagem.setPontuacao(personagem.getPontuacao()+100);
-			}else {
-				personagem.setPontuacao(personagem.getPontuacao()+50);
+				killers = (List<JSONObject>) deaths.get(i).get("killers");
+				if (killers.size() <= 2 && killers.size() != 1) {
+					personagem.setPontuacao(personagem.getPontuacao() + 600);
+				} else if (killers.size() <= 5) {
+					personagem.setPontuacao(personagem.getPontuacao() + 300);
+				} else if (killers.size() <= 10) {
+					personagem.setPontuacao(personagem.getPontuacao() + 100);
+				} else {
+					personagem.setPontuacao(personagem.getPontuacao() + 50);
+				}
 			}
+			ScraperService s = new ScraperService();
+			String st = s.scrape(personagem.getNome());
+			personagem.setPontuacao(personagem.getPontuacao() + Integer.parseInt(st));
+		} else {
+			personagem.setPontuacao(0);
 		}
-		
-		ScraperService s = new ScraperService();
-		String st = s.scrape(personagem.getNome());
-		personagem.setPontuacao(personagem.getPontuacao() + Integer.parseInt(st));
+
 		return personagem.getPontuacao();
 	}
 
