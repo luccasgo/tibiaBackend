@@ -30,6 +30,15 @@ public class ScraperService {
 		String retorno = "";
 		Document doc = Jsoup.connect(url).get();
 
+//		Elements elements = doc.select("tr td.CSC:nth-child(2)");
+//		Map<String, String> data = new HashMap<>();
+//		for (int i = 0; i < elements.size(); i ++) {
+//			String matador = elements.get(i).text();
+//		    String points = elements.get(i + 1).text();
+//		    data.put(matador, points);
+//		}
+//		System.out.println(data.get("Tomate Amaldiçoado"));
+//		return data.get("Tomate Amaldiçoado");
 
 		Elements elements = doc.select("tr td.CSC:nth-child(2)");
 		for (Element element : elements) {
@@ -41,10 +50,19 @@ public class ScraperService {
 				String ponto = next.toString();
 				Pattern pattern = Pattern.compile(">(.*?)<");
 		        Matcher matcher = pattern.matcher(ponto);
+		        if (matcher.find()) {
+		        	System.out.println("find");
+		        } else {
+		            // pattern not found in input string
+		        }
 		        String value = matcher.group(1);
-
+		        System.out.println(value);
 				retorno = value;
 				break;
+//				if (next != null && next.text().equals("pontos")) {
+//					String points = next.nextElementSibling().text();
+//					System.out.println("points : " + points);
+//				}
 			}
 		}
 		return retorno;
