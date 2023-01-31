@@ -50,7 +50,11 @@ public class CharesDTO {
 			System.out.println("Não foi encontrado mortes no personagem.");
 			ScraperService s = new ScraperService();
 			String st = s.scrape(personagem.getNome());
-			personagem.setPontuacao(personagem.getPontuacao() + Integer.parseInt(st));
+			if(!st.isEmpty()) {
+				personagem.setPontuacao(personagem.getPontuacao() + Integer.parseInt(st));
+			}else {
+				personagem.setPontuacao(0);
+			}
 		}
 
 		return personagem.getPontuacao();

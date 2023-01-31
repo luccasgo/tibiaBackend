@@ -8,13 +8,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.core.ExceptionDepthComparator;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ScraperService {
 
 	public String scrape(String nome) throws IOException {
-		nome.toLowerCase();
 		String[] listaNome = nome.split(" ");
 		StringBuilder sb = new StringBuilder();
 		String urlBase = "https://www.tibiaring.com/char.php?c=";
